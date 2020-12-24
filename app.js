@@ -1,14 +1,11 @@
-//load express
+//load 
 const express = require ( 'express' )
-//load express-handlebars
 const exphbs = require ( 'express-handlebars' )
-//load restaurant
 const Restaurant = require ( './models/restaurant' )
-//load mongoose
 const mongoose = require ( 'mongoose' )
-//load body-parser
 const bodyParser = require ( 'body-parser' )
 const restaurantList = require ( './restaurant.json' ).results
+const methodOverride = require ( 'method-override' )
 
 //Declare related variables for server
 const app = express ()
@@ -18,6 +15,7 @@ app.engine ( 'handlebars' , exphbs ({ defaultLayout : 'main' }) )
 app.set ( 'view engine' , 'handlebars' )
 app.use ( express.static ( 'public' ) )
 app.use ( bodyParser.urlencoded ({ extended : true }) )
+app.use ( methodOverride ( '_method' ) )
 
 //set connection with database
 mongoose.connect ( 'mongodb://localhost/restaurant_list' , { useNewUrlParser: true , useUnifiedTopology: true } )
@@ -70,7 +68,7 @@ app.get ( '/restaurants/:id/edit' , ( req , res ) => {
     .catch ( error => console.log ( error ) )
 })
 
-app.post ( '/restaurants/:id/edit' , ( req , res ) => {
+app.put ( '/restaurants/:id' , ( req , res ) => {
     const id = req.params.id
     const name = req.body.name     
     const name_en = req.body.name_en  
@@ -98,7 +96,7 @@ app.post ( '/restaurants/:id/edit' , ( req , res ) => {
         .then ( () => res.redirect ( `/restaurants/${id}` ) ) 
         .catch ( error => console.log ( error ) )
 })
-app.post ( '/restaurants/:id/delete' , ( req , res ) => {
+app.delete ( '/restaurants/:id' , ( req , res ) => {
     const id = req.params.id
     return Restaurant.findById ( id )
       .then ( restaurant => restaurant.remove () )
