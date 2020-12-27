@@ -23,7 +23,10 @@ app.get ( '/search' , ( req , res ) => {
     const keyword = req.query.keyword
     const restaurants = restaurantList.filter ( restaurant => restaurant.name.toLowerCase().includes ( keyword.toLowerCase().trim() ) || restaurant.category.toLowerCase().includes ( keyword.toLowerCase().trim() ) )   
     res.render ( 'index', { restaurants: restaurants , keywords :  req.query.keyword } )
-  })
+})
+app.get ( '/sort' , ( req, res ) => {
+  console.log ( req )
+})
 
 //listening server
 app.listen ( port , () => {
