@@ -1,14 +1,15 @@
-const express = require ( 'express' )
-const router = express.Router ()
-const Restaurant = require ( '../../models/restaurant.js' )
+const express = require('express')
+const router = express.Router()
+const Restaurant = require('../../models/restaurant.js')
 
-router.get ( '/' , ( req , res ) => {
+router.get('/', (req, res) => {
   Restaurant.find()
   .lean()
-  .then ( restaurants => {
-    res.render ( 'index', { restaurants } ) 
+  .sort({name : 'asc'})
+  .then(restaurants => {
+    res.render('index', {restaurants}) 
   }) 
-  .catch ( error => console.log ( error ) )    
+  .catch(error => console.log(error))    
 })
 
 module.exports = router

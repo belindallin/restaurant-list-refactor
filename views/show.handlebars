@@ -4,12 +4,12 @@
     <div class="col-12 col-md-10 mx-auto">
 
       <p class="mb-1" >
-        <button type="button" class="btn btn-warning">
-          <a href="/restaurants/{{restaurant._id}}/edit" class="mr-2" >Edit</a>
-        </button> 
+        <div class="editBtn d-flex justify-content-end">
+          <a href="/restaurants/{{restaurant._id}}/edit" class="btn btn-warning mr-2" >Edit</a>
         <form action="/restaurants/{{ restaurant._id }}?_method=DELETE" method="POST">
-          <button type="submit"class="btn btn-dark">delete</button>
-        </form>       
+          <button type="submit"class="btn btn-dark">Delete</button>
+        </form>     
+        </div>
         <span class="text-secondary ">
           <i class="fas fa-utensils pr-2"></i>
           類別：
